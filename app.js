@@ -3,19 +3,29 @@
  * Module dependencies.
  */
 
-var mu2Express = require('mu2Express');
-var express = require('express');
-var routes = require('./routes');
-var http = require('http');
-var path = require('path');
+var mu2Express = require('mu2Express'),
+ express = require('express'),
+ routes = require('./routes'),
+ api = require('./routes/api'),
+ http = require('http'),
+ path = require('path')
 
-var app = express();
+var app = module.exports = express();
+
+
+
+
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.engine('mustache', mu2Express.engine)
   app.set('views', __dirname + '/views');
   app.set('view engine', 'mustache');
+  app.set('view options', {
+    layout: false
+  });
+  
+
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -33,7 +43,30 @@ app.configure('production', function(){
 });
 
 app.get('/', routes.index);
+ 
+//Add code
+app.get('/partials/:name', routes.partials);
 
+// JSON API
+app.get('/api/Events', api.Events);
+
+app.get('/api/Event/:id', api.Event);
+ 
+app.post('/api/Event', api.addEvent);
+
+app.put('/api/Event/:id', api.editEvent);
+
+app.delete('/api/Event/:id', api.deleteCustomer);
+
+//Add Code
+
+/*
 http.createServer(app).listen(app.get('port'), function(){
   console.log("ACME server listening on port " + app.get('port'));
 });
+*/
+
+http.createServer(app).listen(3001, function(){
+  console.log("ACME server listening on port 3001 " );
+});
+

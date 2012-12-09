@@ -1,3 +1,54 @@
-<link rel="stylesheet" href="/stylesheets/style.css" type="text/css" />
-<h1>{{title}}</h1>
+
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head><title>ACME</title>
+<link rel="stylesheet" href="stylesheets/style.css" type="text/css" />
+<link rel="stylesheet" href="stylesheets/bootstrap.css" type="text/css" />
+<meta http-equiv='Content-Type' content='Type=text/html; charset=utf-8'/>
+<script src="js/lib/angular/angular.js"></script>
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/directives.js"></script>
+</head>
+<body>
+<h1>TITLE: {{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+<div ng-view>
+</div>
+
+<div ng-controller="IndexCtrl">
+
+<p> There are [[Events.length]] opportunities </p>
+<table>
+
+<th>First Name
+<th>Utility Account Number</th>
+<th>Customer ID</th>
+<th>Account ID</th>
+
+
+
+<tbody ng-repeat='Event in Events'>
+<tr>
+<td>[[Event.NameFirst]]</td>
+<td>
+[[Event.UtilityAccountNumber]]</td>
+<td>
+[[Event.MasterCustomerID]]</td>  
+<td>
+[[Event.AccountID]]</td> 
+
+</tbody>
+</table>
+
+</div>
+
+
+
+
+
+</body>
+</html>
