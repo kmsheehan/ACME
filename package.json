@@ -1,11 +1,19 @@
 {
-  "name": "acme",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app"
-  },
-  "dependencies": {
-    "express": "3.0.4"
-  }
+    "name": "acme",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node app"
+    },
+    "dependencies": {
+        "express": "3.0.4",
+        "Mongodb": "",
+        "underscore": "",
+        "step": "",
+        "mocha": "",
+        "assert": "",
+        "should": "",
+        "Mongoose": "",
+        "mockery": ""
+    }
 }
