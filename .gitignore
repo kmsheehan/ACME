@@ -49,4 +49,4 @@ _ReSharper*/
 # ignore IntelliJ files
 .idea
 *.iml
-
+atlassian-ide-plugin.xml
