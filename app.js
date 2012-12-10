@@ -17,7 +17,7 @@ var app = module.exports = express();
 
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 3001);
   app.engine('mustache', mu2Express.engine)
   app.set('views', __dirname + '/views');
   app.set('view engine', 'mustache');
@@ -60,13 +60,8 @@ app.delete('/api/Event/:id', api.deleteCustomer);
 
 //Add Code
 
-/*
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("ACME server listening on port " + app.get('port'));
-});
-*/
-
-http.createServer(app).listen(3001, function(){
-  console.log("ACME server listening on port 3001 " );
 });
 
