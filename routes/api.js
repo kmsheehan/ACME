@@ -10,27 +10,27 @@ var express = require('express'),
 
 var provider = new Provider('localhost', 27017);
 // GET
-exports.Events = function (req, res) {
-    provider.getAll(function (error, Events) {
+exports.CustomerEvents = function (req, res) {
+    provider.getAll(function (error, CustomerEvents) {
         res.json({
-            Events: Events
+            CustomerEvents: CustomerEvents
         });
 //console.log(Events);
     });
 };
 
 
-exports.Event = function (req, res) {
+exports.CustomerEvent = function (req, res) {
     var id = req.params.id;
-    provider.find(id, function (error, Event) {
+    provider.find(id, function (error, CustomerEvent) {
         res.json({
-            Event: Event
+            CustomerEvent: CustomerEvent
         });
     });
 };
 
 // POST
-exports.addEvent = function (req, res) {
+exports.addCustomerEvent = function (req, res) {
     provider.save({
         NameFirst: req.body.NameFirst,
         UtilityAccountNumber: req.body.UtilityAccountNumber
@@ -40,7 +40,7 @@ exports.addEvent = function (req, res) {
 };
 
 // PUT
-exports.editEvent = function (req, res) {
+exports.editCustomerEvent = function (req, res) {
     var id = req.params.id;
     provider.update(id,
         {
@@ -54,7 +54,7 @@ exports.editEvent = function (req, res) {
 };
 
 // DELETE
-exports.deleteEvent = function (req, res) {
+exports.deleteCustomerEvent = function (req, res) {
     var id = req.params.id;
     provider.delete(id, function (error, customer) {
         res.json(req.body);

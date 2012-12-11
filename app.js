@@ -31,7 +31,8 @@ app.configure(function () {
 });
 
 app.configure('development', function () {
-    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    app.use(express.errorHandler());
+//    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 app.configure('production', function () {
@@ -44,15 +45,15 @@ app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
 // JSON API
-app.get('/api/Events', api.Events);
+app.get('/api/CustomerEvents', api.CustomerEvents);
 
-app.get('/api/Event/:id', api.Event);
+app.get('/api/CustomerEvent/:id', api.CustomerEvent);
 
-app.post('/api/Event', api.addEvent);
+app.post('/api/CustomerEvent', api.addCustomerEvent);
 
-app.put('/api/Event/:id', api.editEvent);
+app.put('/api/CustomerEvent/:id', api.editCustomerEvent);
 
-app.delete('/api/Event/:id', api.deleteCustomer);
+app.delete('/api/CustomerEvent/:id', api.deleteCustomerEvent);
 
 //Add Code
 

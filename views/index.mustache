@@ -19,29 +19,34 @@
 <div ng-view>
 </div>
 
+
 <div ng-controller="IndexCtrl">
 
-    <p> There are [[Events.length]] opportunities </p>
+    <p> There are [[CustomerEvents.length]] opportunities </p>
+
     <table>
-
-        <th>First Name
-        <th>Utility Account Number</th>
-        <th>Customer ID</th>
-        <th>Account ID</th>
-
-
-        <tbody ng-repeat='Event in Events'>
         <tr>
-            <td>[[Event.NameFirst]]</td>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Utility Account Number</th>
+            <th>Account ID</th>
+            <th>AnnualKWH</th>
+            <th>Status</th>
+        </tr>
+
+        <tbody ng-repeat='CustomerEvent in CustomerEvents'>
+        <tr>
+            <td>[[CustomerEvent.NameFirst]]</td>
+            <td>[[CustomerEvent.NameLast]]</td>
             <td>
-                [[Event.UtilityAccountNumber]]
+                [[CustomerEvent.UtilityAccountNumber]]
             </td>
+
             <td>
-                [[Event.MasterCustomerID]]
+                [[CustomerEvent.AccountID]]
             </td>
-            <td>
-                [[Event.AccountID]]
-            </td>
+            <td  ng-repeat='Event in CustomerEvent.Events'>[[Event.AnnualKWH]] [[Event.Status]]</td>
+        </tr>
 
         </tbody>
     </table>

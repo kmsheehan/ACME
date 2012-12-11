@@ -8,18 +8,18 @@ angular.module('myApp', [], function ($interpolateProvider) {
 /* Controllers */
 
 function IndexCtrl($scope, $http) {
-    alert('index controller..');
-    $http.get('/api/Events').
+    //alert('index controller..');
+    $http.get('/api/CustomerEvents').
         success(function (data, status, headers, config) {
-            $scope.Events = data.Events;
-            console.log($scope.Events);
+            $scope.CustomerEvents = data.CustomerEvents;
+            console.log($scope.CustomerEvents);
         });
 }
 
 function AddEventCtrl($scope, $http, $location) {
     $scope.form = {};
     $scope.submitEvent = function () {
-        $http.post('/api/Event', $scope.form).
+        $http.post('/api/CustomerEvent', $scope.form).
             success(function (data) {
                 $location.path('/');
             });
@@ -27,21 +27,21 @@ function AddEventCtrl($scope, $http, $location) {
 }
 
 function ReadEventCtrl($scope, $http, $routeParams) {
-    $http.get('/api/Event/' + $routeParams.id).
+    $http.get('/api/CustomerEvent/' + $routeParams.id).
         success(function (data) {
-            $scope.Event = data.Event;
+            $scope.CustomerEvent = data.Event;
         });
 }
 
 function EditEventCtrl($scope, $http, $location, $routeParams) {
     $scope.form = {};
-    $http.get('/api/Event/' + $routeParams.id).
+    $http.get('/api/CustomerEvent/' + $routeParams.id).
         success(function (data) {
             $scope.form = data.Event;
         });
 
     $scope.editEvent = function () {
-        $http.put('/api/Event/' + $routeParams.id, $scope.form).
+        $http.put('/api/CustomerEvent/' + $routeParams.id, $scope.form).
             success(function (data) {
                 $location.url('/readEvent/' + $routeParams.id);
             });
@@ -49,13 +49,13 @@ function EditEventCtrl($scope, $http, $location, $routeParams) {
 }
 
 function DeleteEventCtrl($scope, $http, $location, $routeParams) {
-    $http.get('/api/Event/' + $routeParams.id).
+    $http.get('/api/CustomerEvent/' + $routeParams.id).
         success(function (data) {
-            $scope.Event = data.Event;
+            $scope.CustomerEvent = data.Event;
         });
 
     $scope.deleteEvent = function () {
-        $http.delete('/api/Event/' + $routeParams.id).
+        $http.delete('/api/CustomerEvent/' + $routeParams.id).
             success(function (data) {
                 $location.url('/');
             });

@@ -5,13 +5,13 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
 Provider = function (host, port) {
-    this.db = new Db('CustomerEvents', new Server(host, port, {auto_reconnect: true}, {}), {safe: false});
+    this.db = new Db('ACME', new Server(host, port, {auto_reconnect: true}, {}), {safe: false});
     this.db.open(function () {
     });
 };
 
 Provider.prototype.getCollection = function (callback) {
-    this.db.createCollection('Events', function (error, customerevent_collection) {
+    this.db.createCollection('CustomerEvents', function (error, customerevent_collection) {
         if (error) {
             callback(error);
         } else {
@@ -25,11 +25,11 @@ Provider.prototype.getAll = function (callback) {
         if (error) {
             callback(error);
         } else {
-            customerevent_collection.find().toArray(function (err, Events) {
+            customerevent_collection.find().toArray(function (err, CustomerEvents) {
                 if (error) {
                     callback(error);
                 } else {
-                    callback(null, Events);
+                    callback(null, CustomerEvents);
                 }
             });
         }
