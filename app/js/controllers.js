@@ -6,7 +6,6 @@ function EventListCtrl($scope, $http) {
     $http.get('/api/CustomerEvents').
         success(function (data) {
             $scope.CustomerEvents = data.CustomerEvents;
-            //console.log($scope.CustomerEvents);
         });
 
 }
