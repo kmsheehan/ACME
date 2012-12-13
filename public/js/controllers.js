@@ -1,20 +1,25 @@
 'use strict';
 
+/*
 angular.module('myApp', [], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
 });
+*/
 
 /* Controllers */
 
 function IndexCtrl($scope, $http) {
     //alert('index controller..');
+
     $http.get('/api/CustomerEvents').
         success(function (data, status, headers, config) {
             $scope.CustomerEvents = data.CustomerEvents;
             console.log($scope.CustomerEvents);
         });
+
 }
+//IndexCtrl.$inject = ['$scope', '$http'];
 
 function AddEventCtrl($scope, $http, $location) {
     $scope.form = {};

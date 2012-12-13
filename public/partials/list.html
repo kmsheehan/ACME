@@ -1,0 +1,32 @@
+<div>
+
+    <p> There are {{CustomerEvents.length}} opportunities </p>
+
+    <table>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Utility Account Number</th>
+            <th>Account ID</th>
+            <th>AnnualKWH</th>
+            <th>Status</th>
+        </tr>
+
+        <tbody ng-repeat='CustomerEvent in CustomerEvents'>
+        <tr>
+            <td>{{CustomerEvent.NameFirst}}</td>
+            <td>{{CustomerEvent.NameLast}}</td>
+            <td>
+                {{CustomerEvent.UtilityAccountNumber}}
+            </td>
+
+            <td>
+                {{CustomerEvent.AccountID}}
+            </td>
+            <td  ng-repeat='Event in CustomerEvent.Events'>{{Event.AnnualKWH}} {{Event.Status}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>

@@ -21,6 +21,19 @@
 
 
 <div ng-controller="IndexCtrl">
+    <table border="1">
+        <tbody ng-repeat='(what,Events) in CustomerEvents'>
+        <tr ng-repeat='Event in Events'>
+            <!--<td ngm-if="$first" rowspan="[[Events.length]]">[[what]]</td>-->
+            <td>[[Event]]</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!--
+<div ng-controller="IndexCtrl">
 
     <p> There are [[CustomerEvents.length]] opportunities </p>
 
@@ -52,6 +65,7 @@
     </table>
 
 </div>
+-->
 
 
 </body>

@@ -13,7 +13,6 @@
         "mocha": "",
         "assert": "",
         "should": "",
-        "Mongoose": "",
         "mockery": ""
     }
 }

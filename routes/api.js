@@ -4,7 +4,6 @@
 
 
 var express = require('express'),
-// Provider = require('./providers/provider-memory').Provider;
     Provider = require('./providers/provider-mongodb').Provider;
 
 

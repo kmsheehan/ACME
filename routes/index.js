@@ -7,11 +7,6 @@ exports.index = function (req, res) {
         locals: {
             title: 'ACME'
         }
-        /*
-         var view = {items:['Mercury','Venus','Earth','Mars']};
-         var template = "<ul> {{#items}}<li>{{i}} - {{.}}</li>{{/items}} </ul>";
-         var html = Mustache.to_html(template,view);
-         */
     });
 
 };
