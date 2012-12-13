@@ -3,7 +3,7 @@
 
 // Declare app level module which depends on filters, and services
 angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives']).
-    config(['$routeProvider', function ($routeProvider) {
+    config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
         $routeProvider.
             when('/listall', {
                 templateUrl: 'partials/list.html',
@@ -19,6 +19,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
                 redirectTo: '/listall'
             });
 
-        //$locationProvider.html5Mode(false);
+        $locationProvider.html5Mode(false);
+
     }]);
 
