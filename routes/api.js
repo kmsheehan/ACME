@@ -3,14 +3,14 @@
  */
 
 
-var express = require('express'),
-    Provider = require('./providers/provider-mongodb').Provider;
+var express = require('express');
+var provider = require('./providers/provider-mongodb').Provider;
 
 
-var provider = new Provider('localhost', 27017);
+var db = new provider('localhost', 27017);
 // GET
 exports.CustomerEvents = function (req, res) {
-    provider.getAll(function (error, CustomerEvents) {
+    db.getAll(function (error, CustomerEvents) {
         res.json({
             CustomerEvents: CustomerEvents
         });
@@ -21,41 +21,10 @@ exports.CustomerEvents = function (req, res) {
 
 exports.CustomerEvent = function (req, res) {
     var id = req.params.id;
-    provider.find(id, function (error, CustomerEvent) {
+    db.find(id, function (error, CustomerEvent) {
         res.json({
             CustomerEvent: CustomerEvent
         });
     });
 };
 
-// POST
-exports.addCustomerEvent = function (req, res) {
-    provider.save({
-        NameFirst: req.body.NameFirst,
-        UtilityAccountNumber: req.body.UtilityAccountNumber
-    }, function (error, docs) {
-        res.json(req.body);
-    });
-};
-
-// PUT
-exports.editCustomerEvent = function (req, res) {
-    var id = req.params.id;
-    provider.update(id,
-        {
-            NameFirst: req.body.NameFirst,
-            UtilityAccountNumber: req.body.UtilityAccountNumber
-        },
-        function (error, docs) {
-            res.json(req.body);
-        }
-    );
-};
-
-// DELETE
-exports.deleteCustomerEvent = function (req, res) {
-    var id = req.params.id;
-    provider.delete(id, function (error, customer) {
-        res.json(req.body);
-    });
-};
