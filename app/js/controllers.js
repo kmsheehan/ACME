@@ -1,34 +1,14 @@
 'use strict';
 
-/*
-angular.module('myApp', [], function ($interpolateProvider) {
-    $interpolateProvider.startSymbol('[[');
-    $interpolateProvider.endSymbol(']]');
-});
-*/
-
 /* Controllers */
 
-function IndexCtrl($scope, $http) {
-    //alert('index controller..');
-
+function EventListCtrl($scope, $http) {
     $http.get('/api/CustomerEvents').
-        success(function (data, status, headers, config) {
+        success(function (data) {
             $scope.CustomerEvents = data.CustomerEvents;
-            console.log($scope.CustomerEvents);
+            //console.log($scope.CustomerEvents);
         });
 
-}
-//IndexCtrl.$inject = ['$scope', '$http'];
-
-function AddEventCtrl($scope, $http, $location) {
-    $scope.form = {};
-    $scope.submitEvent = function () {
-        $http.post('/api/CustomerEvent', $scope.form).
-            success(function (data) {
-                $location.path('/');
-            });
-    };
 }
 
 function ReadEventCtrl($scope, $http, $routeParams) {
@@ -38,35 +18,3 @@ function ReadEventCtrl($scope, $http, $routeParams) {
         });
 }
 
-function EditEventCtrl($scope, $http, $location, $routeParams) {
-    $scope.form = {};
-    $http.get('/api/CustomerEvent/' + $routeParams.id).
-        success(function (data) {
-            $scope.form = data.Event;
-        });
-
-    $scope.editEvent = function () {
-        $http.put('/api/CustomerEvent/' + $routeParams.id, $scope.form).
-            success(function (data) {
-                $location.url('/readEvent/' + $routeParams.id);
-            });
-    };
-}
-
-function DeleteEventCtrl($scope, $http, $location, $routeParams) {
-    $http.get('/api/CustomerEvent/' + $routeParams.id).
-        success(function (data) {
-            $scope.CustomerEvent = data.Event;
-        });
-
-    $scope.deleteEvent = function () {
-        $http.delete('/api/CustomerEvent/' + $routeParams.id).
-            success(function (data) {
-                $location.url('/');
-            });
-    };
-
-    $scope.home = function () {
-        $location.url('/');
-    };
-}
