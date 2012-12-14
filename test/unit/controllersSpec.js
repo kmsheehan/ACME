@@ -10,7 +10,7 @@ describe('Testing a controller', function() {
         scope = $rootScope.$new();
 
         httpMock.when('GET', '/api/Events').
-          respond([{name: 'name1'}, {'name': 'name3'}]);
+          respond([{name: 'name1'}, {'name': 'name2'}]);
 
         ctrl = $controller("indexCtrl", {
             $scope: scope
@@ -19,7 +19,7 @@ describe('Testing a controller', function() {
     }));
 
     it('should return list of events', function() {
-        expect(scope.Events[0].name).("name1");
+        expect(scope.Events[0].name).toMatch("name1");
     });
     it('should return list of events', function() {
         expect(scope.Events[0].name).toMatch("name1");
