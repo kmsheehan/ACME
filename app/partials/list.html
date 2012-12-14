@@ -31,14 +31,14 @@
             <td>{{CustomerEvent.ServicePhone}}</td>
             <td>{{CustomerEvent.Commodity}}</td>
             <td>{{CustomerEvent.PremiseType}}</td>
-            <td>{{CustomerEvent.ServiceStartDate}}</td>
+            <td>{{CustomerEvent.ServiceStartDate | date:'shortDate'}}</td>
             <td>{{CustomerEvent.UtilityAccountNumber}}</td>
             <td>{{CustomerEvent.AssignedToEmployeeNameFirst}} {{CustomerEvent.AssignedToEmployeeNameLast}}</td>
             <td>{{CustomerEvent.AnnualConsumption}}</td>
             <td>{{CustomerEvent.AccountStatus}}</td>
-            <td>{{CustomerEvent.AccountStatusDate}}</td>
+            <td>{{CustomerEvent.AccountStatusDate | date:'shortDate'}}</td>
             <td>{{CustomerEvent.DropStatus}}</td>
-            <td>{{CustomerEvent.DropStatusDate}}</td>
+            <td>{{CustomerEvent.DropStatusDate | date:'shortDate'}}</td>
         </tr>
         </tbody>
     </table>
