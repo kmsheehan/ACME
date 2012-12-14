@@ -12,7 +12,7 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
         $routeProvider.
             when('/events', {
                 templateUrl: 'partials/page-list.html',
-                controller: EventListCtrl
+                controller: EventGridCtrl
             });
 
         $routeProvider.otherwise({

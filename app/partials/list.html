@@ -1,25 +1,44 @@
 <div>
 
     <p> There are {{CustomerEvents.length}} opportunities </p>
-    <b>Enter a Search criteria :</b> <input type="text" ng-model="search" class="search-query" placeholder="Search"></input>
+    <b>Enter a Search criteria :</b> <input type="text" ng-model="search" class="search-query"
+                                            placeholder="Search"></input>
     <table>
         <tr>
-            <th><a href="" ng-click="predicate = 'FirstName'; reverse=false">First Name</th>
-            <th><a href="" ng-click="predicate = 'LastName'; reverse=false">Last Name</th>
-            <th><a href="" ng-click="predicate = 'UtilityAccountNumber'; reverse=false">Utility Account Number</th>
-            <th><a href="" ng-click="predicate = 'AccountID'; reverse=false">Account ID</th>
-            <th><a href="" ng-click="predicate = 'AnnualConsumption'; reverse=false">AnnualKWH</th>
-            <th><a href="" ng-click="predicate = 'DropStatus'; reverse=false">Status</th>
+            <th><a href="" ng-click="predicate = 'AccountID'; reverse=!reverse">Account ID</th>
+            <th><a href="" ng-click="predicate = 'FirstName'; reverse=!reverse">First Name</th>
+            <th><a href="" ng-click="predicate = 'LastName'; reverse=!reverse">Last Name</th>
+            <th><a href="" ng-click="predicate = 'State'; reverse=!reverse">State</th>
+            <th><a href="" ng-click="predicate = 'Phone'; reverse=!reverse">Phone</th>
+            <th><a href="" ng-click="predicate = 'Commodity'; reverse=!reverse">Commodity</th>
+            <th><a href="" ng-click="predicate = 'PremiseType'; reverse=!reverse">PremiseType</th>
+            <th><a href="" ng-click="predicate = 'ServiceDate'; reverse=!reverse">Service Date</th>
+            <th><a href="" ng-click="predicate = 'UtilityAccountNumber'; reverse=!reverse">Utility Account Number</th>
+            <th><a href="" ng-click="predicate = 'AssignedToEmployeeNameFirst'; reverse=!reverse">Assigned To</th>
+            <th><a href="" ng-click="predicate = 'AnnualConsumption'; reverse=!reverse">Annual kWh</th>
+            <th><a href="" ng-click="predicate = 'AccountStatus'; reverse=!reverse">Status</th>
+            <th><a href="" ng-click="predicate = 'AccountStatusDate'; reverse=!reverse">Status Date</th>
+            <th><a href="" ng-click="predicate = 'DropStatus'; reverse=!reverse">Contact Status</th>
+            <th><a href="" ng-click="predicate = 'DropStatusDate'; reverse=!reverse">Contact Status Date</th>
         </tr>
 
         <tbody ng-repeat='CustomerEvent in CustomerEvents | filter:search | orderBy:predicate:reverse '>
         <tr>
+            <td>{{CustomerEvent.AccountID}}</td>
             <td>{{CustomerEvent.FirstName}}</td>
             <td>{{CustomerEvent.LastName}}</td>
+            <td>{{CustomerEvent.ServiceState}}</td>
+            <td>{{CustomerEvent.ServicePhone}}</td>
+            <td>{{CustomerEvent.Commodity}}</td>
+            <td>{{CustomerEvent.PremiseType}}</td>
+            <td>{{CustomerEvent.ServiceStartDate}}</td>
             <td>{{CustomerEvent.UtilityAccountNumber}}</td>
-            <td>{{CustomerEvent.AccountID}}</td>
+            <td>{{CustomerEvent.AssignedToEmployeeNameFirst}} {{CustomerEvent.AssignedToEmployeeNameLast}}</td>
             <td>{{CustomerEvent.AnnualConsumption}}</td>
+            <td>{{CustomerEvent.AccountStatus}}</td>
+            <td>{{CustomerEvent.AccountStatusDate}}</td>
             <td>{{CustomerEvent.DropStatus}}</td>
+            <td>{{CustomerEvent.DropStatusDate}}</td>
         </tr>
         </tbody>
     </table>
