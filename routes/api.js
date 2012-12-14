@@ -14,7 +14,6 @@ exports.CustomerEvents = function (req, res) {
         res.json({
             CustomerEvents: CustomerEvents
         });
-//console.log(Events);
     });
 };
 
