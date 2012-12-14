@@ -13,10 +13,10 @@ basePath = '..';
 files = [
 JASMINE,
 JASMINE_ADAPTER,
-'public/js/lib/angular/angular.js',
-'public/js/lib/angular/angular-*.js',
+'app/js/lib/angular/angular.js',
+'app/js/lib/angular/angular-*.js',
 'test/lib/angular/angular-mocks.js',
-'public/js/indexCtrl.js',
+'app/js/indexCtrl.js',
 'test/unit/controllersSpec.js'
 ];
 
