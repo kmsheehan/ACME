@@ -19,7 +19,7 @@ describe('Testing a controller', function() {
     }));
 
     it('should return list of events', function() {
-        expect(scope.Events[0].name).toMatch("name1");
+        expect(scope.Events[0].name).("name1");
     });
     it('should return list of events', function() {
         expect(scope.Events[0].name).toMatch("name1");
