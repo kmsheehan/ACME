@@ -24,7 +24,7 @@
 
         <tbody ng-repeat='CustomerEvent in CustomerEvents | filter:search | orderBy:predicate:reverse '>
         <tr>
-            <td>{{CustomerEvent.AccountID}}</td>
+            <td><a href='{{epweb_endpoint}}/Member?accountId={{CustomerEvent.AccountID}}' target='_blank'>{{CustomerEvent.AccountID}}</a></td>
             <td>{{CustomerEvent.FirstName}}</td>
             <td>{{CustomerEvent.LastName}}</td>
             <td>{{CustomerEvent.ServiceState}}</td>

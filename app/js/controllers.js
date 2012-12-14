@@ -6,6 +6,7 @@ function EventListCtrl($scope, $http) {
     $http.get('/api/CustomerEvents').
         success(function (data) {
             $scope.CustomerEvents = data.CustomerEvents;
+            $scope.epweb_endpoint = 'http://epweb-dev';
         });
 
 }
