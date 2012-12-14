@@ -6,7 +6,7 @@ describe('Testing a controller', function() {
 
     beforeEach(inject(function($controller, $rootScope, $httpBackend) {
         httpMock = $httpBackend;
-        // création d'un nouveau scope
+        
         scope = $rootScope.$new();
 
         httpMock.when('GET', '/api/Events').
@@ -18,17 +18,17 @@ describe('Testing a controller', function() {
         httpMock.flush();
     }));
 
-    it('should return list of events', function() {
+    it('check for the length of the response', function() {
+        expect(scope.Events[0].name.length).toBe(5);
+    });
+    it('Is it matching with the test', function() {
         expect(scope.Events[0].name).toMatch("name1");
     });
-    it('should return list of events', function() {
-        expect(scope.Events[0].name).toMatch("name1");
+    it('should equal the exxpected text', function() {
+        expect(scope.Events[0].name).toEqual("name1");
     });
-    it('should return list of events', function() {
-        expect(scope.Events[0].name).toMatch("name1");
-    });
-    it('should return list of events', function() {
-        expect(scope.Events[0].name).toMatch("name1");
+    it('should be equal to expected text', function() {
+        expect(scope.Events[0].name).toBe("name1");
     });
     
 
