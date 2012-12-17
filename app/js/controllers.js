@@ -13,9 +13,9 @@ function EventListCtrl($scope, $http) {
 
 function EventGridCtrl($scope, $http) {
     $http.get('/api/CustomerEvents').
-        success(function (data) {
-            $scope.CustomerEvents = data.CustomerEvents;
-            $scope.gridOptions = { data : 'CustomerEvents' };// $scope.myData is also acceptable but will not update properly. OK to use the object if you don't care about updating the data in the grid.
+        success(function (events) {
+            $scope.CustomerEvents = events.CustomerEvents;
+            $scope.gridOptions = { data: 'CustomerEvents' };
         });
 }
 
