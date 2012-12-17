@@ -13,14 +13,13 @@ basePath = '..';
 files = [
 JASMINE,
 JASMINE_ADAPTER,
-'app/js/lib/angular/angular.js',
-'app/js/lib/angular/angular-*.js',
-'test/lib/angular/angular-mocks.js',
-'app/js/indexCtrl.js',
-'test/unit/controllersSpec.js'
+'lib/angularloader/angular.js',	
+'lib/angularloader/angular-*.js',
+'lib/angular/angular-mocks.js',
+'unit/indexCtrl.js',
+'unit/controllersSpec.js'
 ];
 
-console.log(JASMINE);
 
 // list of files to exclude
 exclude = [

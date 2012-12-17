@@ -1,9 +1,9 @@
 basePath = '../';
 
 files = [
-  'test/lib/angular/angular-scenario.js',
-  'test/lib/angular/angular-mocks.js',
-  'test/e2e/*.js'
+  'lib/angular/angular-scenario.js',
+  'lib/angular/angular-mocks.js',
+  'e2e/*.js'
 ];
 
 autoWatch = true;
