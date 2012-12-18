@@ -14,6 +14,7 @@ function EventListCtrl($scope, $http) {
 function EventGridCtrl($scope, $http) {
     $http.get('/api/CustomerEvents').
         success(function (events) {
+
             $scope.CustomerEvents = events.CustomerEvents;
             $scope.gridOptions = { data: 'CustomerEvents' };
         });
