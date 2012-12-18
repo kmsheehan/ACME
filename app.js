@@ -7,10 +7,12 @@ var express = require('express');
 var api = require('./routes/api');
 var http = require('http');
 
+var config = require('./config')
+
 var app = express();
 
 app.configure(function () {
-    app.set('port', process.env.PORT || 3001);
+    app.set('port', config.server_port);
     app.use(express.favicon());
     app.use(express.bodyParser());
     app.use(express.logger('dev'));  //tiny, short, default

@@ -6,8 +6,8 @@
 var express = require('express');
 var provider = require('./providers/provider-mongodb').Provider;
 
-
-var db = new provider('localhost', 27017);
+var config = require('../config')
+var db = new provider(config.mongodb_name, config.mongodb_ip, config.mongodb_port);
 // GET
 exports.CustomerEvents = function (req, res) {
     db.getAll(function (error, CustomerEvents) {
@@ -20,7 +20,7 @@ exports.CustomerEvents = function (req, res) {
 
 exports.CustomerEvent = function (req, res) {
     var id = req.params.id;
-    db.find(id, function (error, CustomerEvent) {
+    db.find(id, function (error, CustomerEvents) {
         res.json({
             CustomerEvent: CustomerEvent
         });

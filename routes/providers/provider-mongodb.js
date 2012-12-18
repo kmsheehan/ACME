@@ -4,14 +4,14 @@ var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
-Provider = function (host, port) {
-    this.db = new Db('ACME', new Server(host, port, {auto_reconnect: true}, {}), {safe: false});
+Provider = function (db_name, host, port) {
+    this.db = new Db(db_name, new Server(host, port, {auto_reconnect: true}, {}), {safe: false});
     this.db.open(function () {
     });
 };
 
 Provider.prototype.getCollection = function (callback) {
-    this.db.createCollection('CustomerEvents', function (error, customerevent_collection) {
+    this.db.createCollection('customerevents', function (error, customerevent_collection) {
         if (error) {
             callback(error);
         } else {
