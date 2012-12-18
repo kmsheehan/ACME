@@ -1,3 +1,4 @@
+<!--
 <div ng-controller="EventGridCtrl">
 
     <h1>PageList partial</h1>
@@ -7,29 +8,6 @@
     <div class="gridStyle" ng-grid="gridOptions">
     </div>
 
-    <!--
-        <b>Enter a Search criteria :</b> <input type="text" ng-model="search" class="search-query" placeholder="Search"></input>
-        <table>
-            <tr>
-                <th><a href="" ng-click="predicate = 'FirstName'; reverse=false">First Name</th>
-                <th><a href="" ng-click="predicate = 'LastName'; reverse=false">Last Name</th>
-                <th><a href="" ng-click="predicate = 'UtilityAccountNumber'; reverse=false">Utility Account Number</th>
-                <th><a href="" ng-click="predicate = 'AccountID'; reverse=false">Account ID</th>
-                <th><a href="" ng-click="predicate = 'AnnualConsumption'; reverse=false">AnnualKWH</th>
-                <th><a href="" ng-click="predicate = 'DropStatus'; reverse=false">Status</th>
-            </tr>
+</div>-->
 
-            <tbody ng-repeat='CustomerEvent in CustomerEvents | filter:search | orderBy:predicate:reverse '>
-            <tr>
-                <td>{{CustomerEvent.FirstName}}</td>
-                <td>{{CustomerEvent.LastName}}</td>
-                <td>{{CustomerEvent.UtilityAccountNumber}}</td>
-                <td>{{CustomerEvent.AccountID}}</td>
-                <td>{{CustomerEvent.AnnualConsumption}}</td>
-                <td>{{CustomerEvent.DropStatus}}</td>
-            </tr>
-            </tbody>
-        </table>
-    -->
-
-</div>
+<div class="gridStyle" ng-grid="gridOptions"></div>
