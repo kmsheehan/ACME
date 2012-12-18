@@ -14,6 +14,11 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
                 templateUrl: 'partials/page-list.html',
                 controller: EventGridCtrl
             });
+        $routeProvider.
+            when('/test', {
+                templateUrl: 'test.html',
+                controller: TestCtrl
+            });
 
         $routeProvider.otherwise({
                 redirectTo: '/listall'
