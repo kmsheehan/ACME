@@ -60,7 +60,7 @@ autoWatch = true;
 // - Safari (only Mac)
 // - PhantomJS
 // - IE (only Windows)
-browsers = [];
+browsers = ['PhantomJS'];
 
 
 // If browser does not capture in given timeout [ms], kill it
@@ -69,4 +69,4 @@ captureTimeout =1005000;
 
 // Continuous Integration mode
 // if true, it capture browsers, run tests and exit
-singleRun = false;
+singleRun = true;

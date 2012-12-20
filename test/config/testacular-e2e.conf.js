@@ -8,7 +8,7 @@ files = [
 
 autoWatch = true;
 
-browsers = ['Chrome'];
+browsers = ['PhantomJS'];
 
 singleRun = true;
 
