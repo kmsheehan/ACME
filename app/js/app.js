@@ -19,6 +19,21 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
                 templateUrl: 'test.html',
                 controller: TestCtrl
             });
+        $routeProvider.
+            when('/', {
+                templateUrl: 'partials/display.html',
+                controller: DisplayCtrl
+            });
+        $routeProvider.
+            when('/add', {
+                templateUrl: 'partials/addEvent.html',
+                controller: AddEventCtrl
+            });
+        $routeProvider.
+            when('/edit/:rowid', {
+                templateUrl: 'partials/addEvent.html',
+                controller: EditEventCtrl
+            });
 
         $routeProvider.otherwise({
                 redirectTo: '/listall'
