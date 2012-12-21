@@ -24,6 +24,8 @@ app.configure(function () {
 // JSON API
 app.get('/api/CustomerEvents', api.CustomerEvents);
 
+console.log("in app.js " + api);
+
 http.createServer(app).listen(app.get('port'), function () {
     console.log("ACME server listening on port " + app.get('port'));
 });

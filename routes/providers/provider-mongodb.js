@@ -11,7 +11,7 @@ Provider = function (db_name, host, port) {
 };
 
 Provider.prototype.getCollection = function (callback) {
-    this.db.createCollection('customerevents', function (error, customerevent_collection) {
+    this.db.createCollection('testcollection', function (error, customerevent_collection) {
         if (error) {
             callback(error);
         } else {
@@ -21,6 +21,7 @@ Provider.prototype.getCollection = function (callback) {
 };
 
 Provider.prototype.getAll = function (callback) {
+
     this.getCollection(function (error, customerevent_collection) {
         if (error) {
             callback(error);

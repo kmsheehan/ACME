@@ -8,8 +8,11 @@ var provider = require('./providers/provider-mongodb').Provider;
 
 var config = require('../config')
 var db = new provider(config.mongodb_name, config.mongodb_ip, config.mongodb_port);
+
+console.log(" db" + db);
 // GET
 exports.CustomerEvents = function (req, res) {
+
     db.getAll(function (error, CustomerEvents) {
         res.json({
             CustomerEvents: CustomerEvents
