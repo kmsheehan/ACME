@@ -31,7 +31,12 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
             });
         $routeProvider.
             when('/edit/:rowid', {
-                templateUrl: 'partials/addEvent.html',
+                templateUrl: 'partials/editEvent.html',
+                controller: EditEventCtrl
+            });
+        $routeProvider.
+            when('/post-message', {
+                templateUrl: 'partials/editEvent.html',
                 controller: EditEventCtrl
             });
 

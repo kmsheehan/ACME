@@ -1,4 +1,0 @@
-ACME
-====
-
-ACME framework

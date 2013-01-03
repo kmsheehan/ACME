@@ -1,0 +1,89 @@
+    Edit Event page
+
+<div ng-controller="EditEventCtrl">
+
+
+    <form >
+
+        <table>
+
+            <tr>
+                <td>
+                    AccountID :
+                </td>
+                <td>
+                    <input type="text" ng-model="event.AccountID" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    FirstName  :
+                </td>
+                <td>
+                    <input type="text"  ng-model="event.FirstName"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    LastName  :
+                </td>
+                <td>
+                    <input type="text" ng-model="event.LastName" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    ServiceState  :
+                </td>
+                <td>
+                    <input type="text" ng-model="event.ServiceState" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    ServicePhone  :
+                </td>
+                <td>
+                    <input type="text" ng-model="event.ServicePhone" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Commodity  :
+                </td>
+                <td>
+                    <input type="text" ng-model="event.Commodity" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    PremiseType  :
+                </td>
+                <td>
+                    <input type="text" ng-model="event.PremiseType" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    ServiceStartDate  :
+                </td>
+                <td>
+                    <input type="text" ng-model="event.ServiceStartDate" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    UtilityAccountNumber  :
+                </td>
+                <td>
+                    <input type="text" ng-model="event.UtilityAccountNumber" />
+                </td>
+            </tr>
+
+        </table>
+
+    </form>
+
+    <button ng-click="onSubmit()"> Submit </button>
+
+</div>

@@ -259,17 +259,21 @@ function AddEventCtrl($scope, $http,$location) {
 }
 
 function EditEventCtrl($scope, $http, $location,$routeParams){
-    $scope.retrieveCustomerEvents1 = function(){
-        $http.get('https://api.mongolab.com/api/1/databases/energyplussampledb/collections/'+'CustomerEvents'+'?apiKey=50d2bd43e4b0ae804758cbd0').
+
+        $http.get('https://api.mongolab.com/api/1/databases/energyplussampledb/collections/CustomerEvents/'+$routeParams.rowid +'?apiKey=50d2bd43e4b0ae804758cbd0').
             success(function(data){
-
-                $scope.myData = data;
-                alert("in success" + $scope.myData )
-                alert("in id" + $routeParams.rowid)
-
-                $scope.event = $scope.myData[$routeParams.rowid];
-                alert(" event " + $scope.myData[$routeParams.rowid])
+                 alert(" in success " + data)
+                $scope.event = data;
+                alert(" in event " + $scope.event)
             })
+
+    $scope.onSubmit = function(){
+        var data = $scope.event;
+        var url = 'https://api.mongolab.com/api/1/databases/energyplussampledb/collections/CustomerEvents/'+$routeParams.rowid +'?apiKey=50d2bd43e4b0ae804758cbd0';
+        $http.post(url,data);
+        $location.path("/");
+
     }
-    $scope.retrieveCustomerEvents1();
+
+
 }
