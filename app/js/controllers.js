@@ -236,9 +236,9 @@ $scope.retrieveCustomerEvents();
         data: 'myData',
         columnDefs: [{field: 'AccountID', displayName: 'Account ID'},{field: 'FirstName', displayName: 'First Name'},{field: 'LastName', displayName: 'Last Name'},
                      {field: 'ServiceState', displayName: 'State'},{field: 'ServicePhone', displayName: 'Phone'},{field: 'Commodity', displayName: 'Commodity'},
-                     {field: 'PremiseType', displayName: 'Premise Type'},{field: 'ServiceStartDate', displayName: 'Service Date'},{field: 'UtilityAccountNumber', displayName: 'Utility Account Number'},
+                     {field: 'PremiseType', displayName: 'Premise Type'},{field: 'ServiceStartDate.$date', displayName: 'Service Date'},{field: 'UtilityAccountNumber', displayName: 'Utility Account Number'},
             {field: 'AssignedToEmployeeNameFirst', displayName: 'Assigned To'},{field: 'AnnualConsumption', displayName: 'Annual kWh'},{field: 'AccountStatus', displayName: 'Status'},
-            {field: 'DropStatusDate', displayName: 'Status Date'},{field: 'DropStatus', displayName: 'Contact Status'},{field: 'DropStatusDate', displayName: 'Contact Status Date'}] ,
+            {field: 'DropStatusDate.$date', displayName: 'Status Date'},{field: 'DropStatus', displayName: 'Contact Status'},{field: 'DropStatusDate.$date', displayName: 'Contact Status Date'}] ,
         selectedItems: $scope.mySelections,
         multiSelect: false
 
@@ -249,12 +249,17 @@ $scope.retrieveCustomerEvents();
 function AddEventCtrl($scope, $http,$location) {
 
     $scope.onSubmit = function(){
+        var ServiceStartDate = {$date: $scope.ServiceStartDate};
+        var DropStatusDate = {$date: $scope.DropStatusDate};
         var data = {AccountID:$scope.AccountID,FirstName:$scope.FirstName,LastName:$scope.LastName,
             ServiceState:$scope.ServiceState,ServicePhone:$scope.ServicePhone,Commodity:$scope.Commodity,
-            PremiseType:$scope.PremiseType,ServiceStartDate:$scope.ServiceStartDate,UtilityAccountNumber:$scope.UtilityAccountNumber}
+            PremiseType:$scope.PremiseType,ServiceStartDate:ServiceStartDate,UtilityAccountNumber:$scope.UtilityAccountNumber,
+            AssignedToEmployeeNameFirst:$scope.AssignedToEmployeeNameFirst,AnnualConsumption:$scope.AnnualConsumption,AccountStatus:$scope.AccountStatus,
+            DropStatusDate:DropStatusDate,DropStatus:$scope.DropStatus
+        }
         var url = 'https://api.mongolab.com/api/1/databases/energyplussampledb/collections/CustomerEvents?apiKey=50d2bd43e4b0ae804758cbd0';
         $http.post(url,data);
-        $location.path("/");
+        $location.path("/display");
     };
 }
 
@@ -271,8 +276,51 @@ function EditEventCtrl($scope, $http, $location,$routeParams){
         var data = $scope.event;
         var url = 'https://api.mongolab.com/api/1/databases/energyplussampledb/collections/CustomerEvents/'+$routeParams.rowid +'?apiKey=50d2bd43e4b0ae804758cbd0';
         $http.post(url,data);
-        $location.path("/");
+        $location.path("/display");
 
+    }
+
+
+}
+
+function DeleteEventCtrl($scope, $http, $location,$routeParams){
+
+    $scope.deleteEvent = function(){
+        $http.delete('https://api.mongolab.com/api/1/databases/energyplussampledb/collections/CustomerEvents/'+$routeParams.rowid +'?apiKey=50d2bd43e4b0ae804758cbd0').
+            success(function(data){
+                alert(" in success " + data)
+                $scope.result = data;
+                alert(" in event " + $scope.result)
+            })
+    }
+
+
+    $scope.deleteEvent();
+
+    $location.path("/display");
+
+}
+
+
+function queueController($scope,$http){
+
+    $scope.submit = function(){
+
+        var data = $scope.message;
+        var url = '/post-message';
+        $http.post(url).
+            success(function(){
+                alert(" in success ");
+            })
+
+    }
+
+    $scope.retrieve = function(){
+        $http.post('/get-message').
+            success(function(data){
+                alert(" in get success " + data.sentMessage);
+                $scope.sentMessage = data.sentMessage;
+            })
     }
 
 

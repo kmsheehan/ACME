@@ -21,9 +21,14 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
             });
         $routeProvider.
             when('/', {
+                templateUrl: 'partials/home.html'
+            });
+        $routeProvider.
+            when('/display', {
                 templateUrl: 'partials/display.html',
                 controller: DisplayCtrl
             });
+
         $routeProvider.
             when('/add', {
                 templateUrl: 'partials/addEvent.html',
@@ -35,9 +40,14 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
                 controller: EditEventCtrl
             });
         $routeProvider.
-            when('/post-message', {
-                templateUrl: 'partials/editEvent.html',
-                controller: EditEventCtrl
+            when('/delete/:rowid', {
+                templateUrl: 'partials/display.html',
+                controller: DeleteEventCtrl
+            });
+        $routeProvider.
+            when('/queue', {
+                templateUrl: 'partials/queue.html'
+
             });
 
         $routeProvider.otherwise({

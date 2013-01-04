@@ -31,11 +31,12 @@ http.createServer(app).listen(app.get('port'), function () {
 });
 
 
-
+var  amqp = require('amqp');
 //for Rabbit MQ integration
 var message = process.argv.slice(2).join(' ') || 'Hello Queue!';
 
 app.post('/post-message',function(req,res){
+      console.log(" message from ui " + req.message);
 
     var connection = amqp.createConnection({host: 'localhost'});
     connection.on('ready', function(){
