@@ -30,4 +30,3 @@ exports.CustomerEvent = function (req, res) {
         });
     });
 };
-

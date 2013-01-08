@@ -1,0 +1,21 @@
+
+
+projects page
+{{projects}}
+
+<h2>Projects</h2>
+<div ng-controller="ProjectsCtrl">
+    {{projects}}
+
+    <ul class="unstyled">
+        <li ng-repeat="project in projects">
+            <input type="checkbox" ng-model="project.done" ng-change="change()">
+            <span class="done-{{project.done}}">{{project.text}}</span>
+        </li>
+    </ul>
+    <form ng-submit="addProject()">
+        <input type="text" ng-model="projectText"  size="30"
+               placeholder="add new project here">
+        <input class="btn-primary" type="submit" value="add">
+    </form>
+</div>

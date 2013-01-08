@@ -49,6 +49,12 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
                 templateUrl: 'partials/queue.html'
 
             });
+        $routeProvider.
+            when('/socket', {
+                templateUrl: 'partials/project-list.html',
+                controller: ProjectsCtrl
+
+            });
 
         $routeProvider.otherwise({
                 redirectTo: '/listall'

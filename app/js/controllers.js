@@ -325,3 +325,27 @@ function queueController($scope,$http){
 
 
 }
+
+function ProjectsCtrl($scope){
+    alert(" in controller");
+    var socket = io.connect();
+    socket.on('change', function(obj) {
+        alert(" ddd "+ obj )
+        $scope.projects = obj;
+        $scope.$apply();
+    });
+
+    $scope.change = function() {
+        alert(" in change")  ;
+        socket.emit('change', $scope.projects);
+    };
+
+    $scope.addProject = function() {
+        alert(" in add")
+        $scope.projects.push({text:$scope.projectText, done:false});
+        $scope.projectText = '';
+        socket.emit('change', $scope.projects);
+    };
+
+
+}
