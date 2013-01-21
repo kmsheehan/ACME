@@ -1,0 +1,107 @@
+
+     Genpop page
+     <br>
+
+<p> <h3> FILTER </h3></p>
+<table>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td> State </td>
+                </tr>
+                <tr>
+                    <td> <select style="width: 200px;" ng-model="selectedState" ng-options="state.abbr as state.abbr for state in statesList" multiple ></select>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td> Agent </td>
+                </tr>
+                <tr>
+                    <td> <select style="width: 200px" ng-model="selectedUser" ng-options="user.firstName as user.firstName for user in usersList" multiple ></select> </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td> Type </td>
+                </tr>
+                <tr>
+                    <td> <select style="width: 200px" ng-model="selectedType" ng-options="dropType.name as dropType.name for dropType in dropTypesList" multiple ></select> </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td> Status </td>
+                </tr>
+                <tr>
+                    <td> <select style="width: 200px" ng-model="selectedStatus" ng-options="stat.id as stat.id for stat in status " multiple ></select> </td>
+                </tr>
+            </table>
+        </td>
+
+        <td>
+            <table style="width: 100px">
+                <tr>
+                    <td colspan="2"> Annual KWH </td>
+                </tr>
+                <tr>
+                    <td>Min</td>
+                    <td><input type="text" placeholder="Min KWH " ng-model="minAnnualConsumption" class="u17"></td>
+                </tr>
+                <tr>
+                    <td>Max</td>
+                    <td><input  type="text" placeholder="Max KWH" ng-model="maxAnnualConsumption" class="u19"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td>
+            <button ng-click="go()"> go </button>
+            <button ng-click="clear()"> clear </button>
+        </td>
+    </tr>
+</table>
+------------------------------------------------------------------------
+
+       {{selectedState}}  {{selectedUser}}   {{selectedType}}
+<table border="1">
+    <tr>
+        <th>Days Since Drop</th>
+        <th>Account Number</th>
+        <th>Account Name</th>
+        <th>Aggregate KWh</th>
+        <th>Annual KWh</th>
+        <th>Utility</th>
+        <th>Cash back Balance</th>
+        <th>Months until Cash Award</th>
+        <th>Invoices</th>
+        <th>Last Rate</th>
+    <tr>
+    <tr ng-repeat="event in genPopData |  filter:isState |filter:isAgent |filter:isDropType  | filter: isBetween">
+    <td>{{event.monthsSinceDropped}}</td>
+    <td>{{event.accountNumber}}</td>
+    <td>{{event.accountName}}</td>
+    <td>{{event.aggregateKWh}}</td>
+    <td>{{event.annualKWh}}</td>
+    <td>{{event.utilityName}}</td>
+    <td>{{event.cashBackBalance}}</td>
+    <td>{{event.monthsUntilCashAward}}</td>
+    <td>{{event.invoices}}</td>
+    <td>{{event.saveRate}}</td>
+    <td>{{event.state}}</td>   <!-- for testing purpose -->
+    <td>{{event.dropType}}</td>     <!-- for testing purpose -->
+
+
+    <tr>
+</table>

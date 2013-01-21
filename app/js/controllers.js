@@ -4,10 +4,12 @@
 
 function EventListCtrl($scope, $http) {
     alert(" in EventListCtrl");
-    $http.get('/api/CustomerEvents').
+    var data = {a:"1"};
+    $http.post('/api/CustomerEvents',data).
         success(function (data) {
             alert(" in success");
-            $scope.CustomerEvents = data.CustomerEvents;
+            $scope.CustomerEvent = data.CustomerEvent;
+//            alert("length " + $scope.CustomerEvents.length);
             $scope.epweb_endpoint = 'http://epweb-dev';
         }).
     error(function(){
@@ -306,9 +308,9 @@ function queueController($scope,$http){
 
     $scope.submit = function(){
 
-        var data = $scope.message;
+        var data = {s:"1"};
         var url = '/post-message';
-        $http.post(url).
+        $http.post(url,data).
             success(function(){
                 alert(" in success ");
             })
@@ -346,6 +348,215 @@ function ProjectsCtrl($scope){
         $scope.projectText = '';
         socket.emit('change', $scope.projects);
     };
+
+
+}
+
+function ReportsCtrl($scope,$http){
+    $scope.showFilterOptions = true;
+    var zips = [];
+    $scope.options = [];
+    $http.get('/api/CustomerEvents').
+        success(function (data) {
+            alert(" in success");
+            $scope.options = data.CustomerEvents;
+            alert("length " + $scope.options.length);
+            for (var i = 0; i < $scope.options.length; i++ ) {
+                if (i % 101 == 0) {
+                    zips.push([]);
+                }
+                console.log(" Zip length" + zips.length)
+                zips[zips.length-1].push($scope.options[i]);
+            }
+            return $scope.zips = zips;
+        }).
+        error(function(){
+            alert(" in error");
+        });
+
+
+
+
+
+//    $scope.options = [ { id: "Annual KWH",selected :true},{ id: "Months Dropped",selected :true }, { id: "Prior Rep",selected :false },{id:"Account Type",selected :false},
+//        { id: "Aggregate KWH",selected :true }, { id: "Drop Status Dt",selected :false },{id:"Promotions",selected :false},{ id: "Account Number",selected :false},
+//        { id: "State",selected :true }, {id:"Pending Awards",selected :false},{ id: "Marketer",selected :false}, { id: "Cash Back Bal Dt",selected :false },
+//        {id:"Utility",selected :true}, { id: "Drop Status",selected :false}, { id: "Premise Status",selected :false },
+//        { id: "Cash Back Balance",selected :true}, { id: "Drop Type",selected :false }, { id: "Partner",selected :false },
+//        { id: "Pricing (Current)",selected :false },{ id: "#of times Saved",selected :false },{id:"Green Indicator",selected :false},
+//        { id: "Svc End Date",selected :false }, {id:"Call Attempts",selected :false}, { id: "Invoice Count",selected :false},
+//        {id:"Months Active",selected :false},{ id: "Drop Date",selected :false},  { id: "Bonus Due Date",selected :false },
+//        { id: "Svc St Date",selected :false}, { id: "Drop Reason ID",selected :false }, { id: "Bonus Type",selected :false }];
+
+    $scope.states = [{ id:"PA",name:"a"},{id:"CA",name:"B"}];
+
+    $scope.utilities = [{ id:1,name:"PECO"},{id:2,name:"ConEdison"},{ id:3,name:"LLP"},{id:4,name:"CTPower"}];
+
+    $scope.selectedFilterOptions = [];
+
+
+    $scope.showSearchOptions = false;
+    $scope.showResults = false;
+
+    $scope.ShowSelected = function() {
+        for (var i=0; i< $scope.options.length; i++){
+            if($scope.options[i].selected  == true){
+                $scope.selectedFilterOptions.push($scope.options[i]);
+            }
+        }
+        $scope.showFilterOptions = false;
+        $scope.showSearchOptions = true;
+    };
+
+    $scope.getResults = function(){
+
+        $scope.showResults = true;
+        $scope.abc = [{ id:"PA",name:"a"},{id:"CA",name:"B"}];
+
+    }
+    $scope.mySelections = [];
+        $scope.gridOptions = {
+            data: 'abc',
+            selectedItems: $scope.mySelections
+        };
+
+
+
+}
+
+function GenPopCtrl($scope,$http){
+
+    $scope.selectedState= "";
+    $scope.selectedUser= "";
+    $scope.selectedType= "";
+    $scope.selectedStatus= "";
+    $scope.minAnnualConsumption='';
+    $scope.maxAnnualConsumption='';
+
+
+    $scope.genPopData =[];
+
+
+
+    $scope.getGenPopDatafromDB = function(){
+        $http.get('/api/GenPop').
+            success(function (data) {
+                $scope.genPopData = data.GenPopData;
+//                $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+            }).
+            error(function(){
+                alert(" in error");
+            });
+
+    }
+
+    $scope.getMasterDatafromDB = function(){
+        $http.get('/api/MasterData').
+            success(function(masterData){
+                $scope.MasterData = masterData.MasterData;
+
+                for(var i=0; i< $scope.MasterData.length; i++){
+                    var row =  $scope.MasterData[i];
+                    for(var key in row){
+                        if(key == "states"){
+                            $scope.statesList = row[key];
+                        }
+                        if(key == "users"){
+                            $scope.usersList = row[key];
+                        }
+                        if(key == "dropTypes"){
+                            $scope.dropTypesList = row[key];
+                        }
+                    }
+                }
+            }).
+            error(function(){
+                alert(" in error");
+            });
+    }
+
+
+    $scope.getGenPopDatafromDB();
+
+    $scope.getMasterDatafromDB();
+
+
+    $scope.go = function(){
+
+//        $scope.abc = function(item){
+//                $scope.stateslist = function(){
+//                    return item.state = $scope.selectedState;
+//                }
+//
+//        }
+        $scope.AnnualConsumptionlimit = 10000;
+
+        $scope.isBetween = function(item) {
+            console.log("$scope.minAnnualConsumption  && $scope.maxAnnualConsumption  "+ $scope.minAnnualConsumption +" " +  $scope.maxAnnualConsumption)
+            console.log("item.annualKWh " + item.annualKWh);
+            if(($scope.minAnnualConsumption != null && $scope.minAnnualConsumption!='') && ($scope.maxAnnualConsumption != null && $scope.maxAnnualConsumption!='')){
+//                if( $scope.minAnnualConsumption < item.annualKWh && item.annualKWh > $scope.maxAnnualConsumption) {
+//                    return  item;
+//                }
+            } else{
+                return  item;
+            }
+
+        };
+
+        $scope.isState = function(item) {
+            console.log(" $scope.selectedState " + $scope.selectedState);
+            if($scope.selectedState != "" && $scope.selectedState != null){
+                console.log(" if ");
+                return item.state == $scope.selectedState;
+            }
+            else{
+                return  item;
+            }
+
+        };
+
+        $scope.isAgent = function(item) {
+
+            console.log(" $scope.selectedUser " + $scope.selectedUser);
+            if($scope.selectedUser != "" && $scope.selectedUser != null){
+                console.log(" if selectedUser ");
+                return item.accountName == $scope.selectedUser;
+            }
+            else{
+                return  item;
+            }
+        };
+
+        $scope.isDropType = function(item) {
+            console.log(" $scope.selectedType " + $scope.selectedType);
+            if($scope.selectedType != "" && $scope.selectedType != null){
+                console.log(" if selectedType ");
+                return item.dropType == $scope.selectedType;
+            }
+            else{
+                return  item;
+            }
+        };
+    }
+
+
+
+
+    $scope.clear = function(){
+
+        $scope.selectedState= "";
+        $scope.selectedUser= "";
+        $scope.selectedType= "";
+        $scope.selectedStatus= "";
+
+        console.log("$scope.genPopData " + $scope.genPopData.length);
+//        $scope.query = {};
+        $scope.AnnualConsumptionlimit = 0;
+
+    }
+
+
 
 
 }

@@ -19,10 +19,10 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
                 templateUrl: 'test.html',
                 controller: TestCtrl
             });
-        $routeProvider.
-            when('/', {
-                templateUrl: 'partials/home.html'
-            });
+//        $routeProvider.
+//            when('/', {
+//                templateUrl: 'partials/home.html'
+//            });
         $routeProvider.
             when('/display', {
                 templateUrl: 'partials/display.html',
@@ -53,6 +53,19 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 
             when('/socket', {
                 templateUrl: 'partials/project-list.html',
                 controller: ProjectsCtrl
+
+            });
+//        $routeProvider.
+//            when('/', {
+//                templateUrl: 'partials/report-list.html',
+//                controller: ReportsCtrl
+//
+//            });
+
+        $routeProvider.
+            when('/', {
+                templateUrl: 'partials/gen-pop.html',
+                controller: GenPopCtrl
 
             });
 

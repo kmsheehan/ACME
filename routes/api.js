@@ -30,3 +30,22 @@ exports.CustomerEvent = function (req, res) {
         });
     });
 };
+
+// get Gen Pop Data
+exports.GenPopData = function (req, res) {
+    db.getGenPopData(function (error, GenPop) {
+        res.json({
+            GenPopData: GenPop
+        });
+    });
+};
+
+// get Master Data
+exports.MasterData = function (req, res) {
+    db.getMasterData(function (error, MasterData) {
+        res.json({
+            MasterData: MasterData
+        });
+    });
+
+};

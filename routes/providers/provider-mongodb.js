@@ -8,10 +8,13 @@ Provider = function (db_name, host, port) {
     this.db = new Db(db_name, new Server(host, port, {auto_reconnect: true}, {}), {safe: false});
     this.db.open(function () {
     });
+//    this.db = new Db('ACME', new Server(host, port, {auto_reconnect: true}, {}), {safe: false});
+//    this.db.open(function () {
+//    });
 };
 
 Provider.prototype.getCollection = function (callback) {
-    this.db.createCollection('testcollection', function (error, customerevent_collection) {
+    this.db.createCollection('CustomerEvents', function (error, customerevent_collection) {
         if (error) {
             callback(error);
         } else {
@@ -99,3 +102,59 @@ Provider.prototype.delete = function (id, callback) {
 };
 
 exports.Provider = Provider;
+//   getGenPopDataCollection
+Provider.prototype.getGenPopDataCollection = function (callback) {
+    this.db.createCollection('GenPop', function (error, genpopdata_collection) {
+        if (error) {
+            callback(error);
+        } else {
+            callback(null, genpopdata_collection);
+        }
+    });
+};
+
+
+Provider.prototype.getGenPopData = function (callback) {
+
+    this.getGenPopDataCollection(function (error, genpopdata_collection) {
+        if (error) {
+            callback(error);
+        } else {
+            genpopdata_collection.find().toArray(function (err, GenPop) {
+                if (error) {
+                    callback(error);
+                } else {
+                    callback(null, GenPop);
+                }
+            });
+        }
+    });
+};
+ //   getMasterDataCollection
+Provider.prototype.getMasterDataCollection = function (callback) {
+    this.db.createCollection('MasterData', function (error, masterdata_collection) {
+        if (error) {
+            callback(error);
+        } else {
+            callback(null, masterdata_collection);
+        }
+    });
+};
+
+
+Provider.prototype.getMasterData = function (callback) {
+
+    this.getMasterDataCollection(function (error, masterdata_collection) {
+        if (error) {
+            callback(error);
+        } else {
+            masterdata_collection.find().toArray(function (err, MasterData) {
+                if (error) {
+                    callback(error);
+                } else {
+                    callback(null, MasterData);
+                }
+            });
+        }
+    });
+};

@@ -1,0 +1,232 @@
+
+
+ <div ng-show="showFilterOptions == true">
+     <span >Pick Fields for Filter / Rules</span>
+     <br>
+     <br>
+     <br>
+     <table border="3">
+         <tbody ng-repeat='CustomerEvent in options | filter:isLess | orderBy:predicate:reverse'>
+         <tr>
+             <td>{{CustomerEvent.FirstName}}</td>
+             <td>{{CustomerEvent.LastName}}</td>
+             <td>{{CustomerEvent.UtilityAccountNumber}}</td>
+             <td>{{CustomerEvent.AccountID}}</td>
+             <td>{{CustomerEvent.AnnualConsumption}}</td>
+             <td>{{CustomerEvent.DropStatus}}</td>
+         </tr>
+
+         </tbody>
+     </table>
+     <br>
+     <br>
+     <br>
+     <table border="3">
+         <tr ng-repeat="days in zips">
+             <td ng-repeat="day in days">
+                 <input type="checkbox" ng-model="day.selected" >{{ day.UtilityBillingZip }}
+                 <!-- After seven iterations a new `<tr>` should be aded -->
+             </td>
+         </tr>
+         <tr>
+             <td>
+             <button ng-click="ShowSelected()"> Select </button>
+             </td>
+         </tr>
+     </table>
+
+
+<!--<table border="3" >-->
+    <!--<tr>-->
+        <!--<td ng-repeat="i in options | limitTo: 4">-->
+            <!--<input type="checkbox" ng-model="i.selected" > {{i.UtilityBillingZip}}-->
+
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td ng-repeat="i in options | startFrom:4 | limitTo:4">-->
+            <!--<input type="checkbox" ng-model="i.selected" >{{i.UtilityBillingZip}}-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td ng-repeat="i in options | startFrom:8 | limitTo:4">-->
+            <!--<input type="checkbox" ng-model="i.selected" > {{i.UtilityBillingZip}}-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td ng-repeat="i in options | startFrom:12 | limitTo:3">-->
+            <!--<input type="checkbox" ng-model="i.selected" > {{i.UtilityBillingZip}}-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td ng-repeat="i in options | startFrom:15 | limitTo:3">-->
+            <!--<input type="checkbox" ng-model="i.selected" > {{i.UtilityBillingZip}}-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td ng-repeat="i in options | startFrom:18 | limitTo:3">-->
+            <!--<input type="checkbox" ng-model="i.selected" > {{i.UtilityBillingZip}}-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td ng-repeat="i in options | startFrom:21 | limitTo:3">-->
+            <!--<input type="checkbox" ng-model="i.selected" > {{i.UtilityBillingZip}}-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td ng-repeat="i in options | startFrom:24 | limitTo:3">-->
+            <!--<input type="checkbox" ng-model="i.selected" > {{i.UtilityBillingZip}}-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td ng-repeat="i in options | startFrom:27 | limitTo:3">-->
+            <!--<input type="checkbox" ng-model="i.selected" > {{i.UtilityBillingZip}}-->
+        <!--</td>-->
+        <!--<td>-->
+            <!--<button ng-click="ShowSelected()"> Select </button>-->
+        <!--</td>-->
+    <!--</tr>-->
+
+
+<!--</table>-->
+ </div>
+ <br>
+ <br>
+ <br>
+     {{selectedFilterOptions}}
+
+    <table>
+        <tr>
+            <td style="width: 10%" ng-show="showSearchOptions == true">
+                <table border="3" ng-repeat="filterOption in selectedFilterOptions">
+                    <tr ng-show="filterOption.id == 'Annual KWH'">
+                        <td>
+                            <table>
+                                <th>
+                                    <td>Annual KWH</td>
+                                    <td></td>
+                                </th>
+                                <tr>
+                                    <td>Min</td>
+                                    <td><input id="u17" type="text" placeholder="Min KWH " class="u17"></td>
+                                </tr>
+                                <tr>
+                                    <td>Max</td>
+                                    <td><input id="u19" type="text" placeholder="Max KWH" class="u19"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr ng-show="filterOption.id == 'Aggregate KWH'">
+                        <td>
+                            <table>
+                                <th>
+                                    <td>Aggregate KWH</td>
+                                    <td></td>
+                                </th>
+                                <tr>
+                                    <td>Min</td>
+                                    <td><input type="text" placeholder="Min KWH " class="u17"></td>
+                                </tr>
+                                <tr>
+                                    <td>Max</td>
+                                    <td><input  type="text" placeholder="Max KWH" class="u19"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr ng-show="filterOption.id == 'State'">
+                        <td>
+                            <table>
+                                <th>
+                                    <td >State</td>
+                                    <td ></td>
+                                </th>
+                                <tr>
+
+                                    <td ><select style="width: 100%" ng-model="state" ng-options="state.id for state in states" multiple ></select></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr ng-show="filterOption.id == 'Utility'">
+                        <td>
+                            <table>
+                                <th>
+                                    <td>Utility</td>
+                                    <td></td>
+                                </th>
+                                <tr>
+                                    <td><select ng-model="utility" ng-options="utility.name for utility in utilities" multiple></select></td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr ng-show="filterOption.id == 'Months Active'">
+                        <td>
+                            <table>
+                                <th>
+                                    <td >Months Active</td>
+                                    <td></td>
+                                </th>
+                                <tr>
+                                    <td><input  type="text" placeholder="months" class="u19"></td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr ng-show="filterOption.id == 'Pricing (Current)'">
+                        <td>
+                            <table>
+                                <th>
+                                    <td >Pricing</td>
+                                    <td></td>
+                                </th>
+                                <tr>
+                                    <td><input  type="text" placeholder="Min Price" class="u19"></td>
+                                    <td><input  type="text" placeholder="Max Price" class="u19"></td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr ng-show="filterOption.id == 'Svc End Date'">
+                        <td>
+                            <table>
+                                <th>
+                                    <td >Svc End Date</td>
+                                    <td></td>
+                                </th>
+                                <tr>
+                                    <td><input  type="text" placeholder="From" class="u19"></td>
+                                    <td><input  type="text" placeholder="To" class="u19"></td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+                <table>
+                    <tr >
+                        <td>
+                            <table>
+
+                                <tr>
+                                    <td><button ng-click="goBack()"> Field Picker </button></td>
+                                    <td><button ng-click="getResults()"> Run </button></td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 90%" ng-show="showResults == true"><div class="gridStyle" ng-grid="gridOptions"></div></td>
+        </tr>
+    </table>
+ <div class="selectedItems">{{mySelections}}</div>
+
+
