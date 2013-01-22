@@ -15,4 +15,9 @@ angular.module('myApp.filters', []).
         }
         return result;
     };
-});
+}).filter('displayFrom', function() {
+        return function(input, start) {
+            start = +start; //parse to int
+            return input.slice(start);
+        }
+    });

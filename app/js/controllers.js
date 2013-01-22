@@ -12,7 +12,7 @@ function EventListCtrl($scope, $http) {
 //            alert("length " + $scope.CustomerEvents.length);
             $scope.epweb_endpoint = 'http://epweb-dev';
         }).
-    error(function(){
+        error(function(){
             alert(" in error");
         });
 
@@ -206,7 +206,7 @@ function TestCtrl($scope) {
 };
 
 function TestCtrl1($scope, $http) {
-alert(" in cntrl ");
+    alert(" in cntrl ");
 
     $scope.getDBData = function () {
         $http.get('/api/CustomerEvents').
@@ -233,12 +233,12 @@ function DisplayCtrl($scope, $http) {
                 $scope.myData = data;
             })
     }
-$scope.retrieveCustomerEvents();
+    $scope.retrieveCustomerEvents();
     $scope.gridOptions = {
         data: 'myData',
         columnDefs: [{field: 'AccountID', displayName: 'Account ID'},{field: 'FirstName', displayName: 'First Name'},{field: 'LastName', displayName: 'Last Name'},
-                     {field: 'ServiceState', displayName: 'State'},{field: 'ServicePhone', displayName: 'Phone'},{field: 'Commodity', displayName: 'Commodity'},
-                     {field: 'PremiseType', displayName: 'Premise Type'},{field: 'ServiceStartDate.$date', displayName: 'Service Date'},{field: 'UtilityAccountNumber', displayName: 'Utility Account Number'},
+            {field: 'ServiceState', displayName: 'State'},{field: 'ServicePhone', displayName: 'Phone'},{field: 'Commodity', displayName: 'Commodity'},
+            {field: 'PremiseType', displayName: 'Premise Type'},{field: 'ServiceStartDate.$date', displayName: 'Service Date'},{field: 'UtilityAccountNumber', displayName: 'Utility Account Number'},
             {field: 'AssignedToEmployeeNameFirst', displayName: 'Assigned To'},{field: 'AnnualConsumption', displayName: 'Annual kWh'},{field: 'AccountStatus', displayName: 'Status'},
             {field: 'DropStatusDate.$date', displayName: 'Status Date'},{field: 'DropStatus', displayName: 'Contact Status'},{field: 'DropStatusDate.$date', displayName: 'Contact Status Date'}] ,
         selectedItems: $scope.mySelections,
@@ -267,12 +267,12 @@ function AddEventCtrl($scope, $http,$location) {
 
 function EditEventCtrl($scope, $http, $location,$routeParams){
 
-        $http.get('https://api.mongolab.com/api/1/databases/energyplussampledb/collections/CustomerEvents/'+$routeParams.rowid +'?apiKey=50d2bd43e4b0ae804758cbd0').
-            success(function(data){
-                 alert(" in success " + data)
-                $scope.event = data;
-                alert(" in event " + $scope.event)
-            })
+    $http.get('https://api.mongolab.com/api/1/databases/energyplussampledb/collections/CustomerEvents/'+$routeParams.rowid +'?apiKey=50d2bd43e4b0ae804758cbd0').
+        success(function(data){
+            alert(" in success " + data)
+            $scope.event = data;
+            alert(" in event " + $scope.event)
+        })
 
     $scope.onSubmit = function(){
         var data = $scope.event;
@@ -415,16 +415,16 @@ function ReportsCtrl($scope,$http){
 
     }
     $scope.mySelections = [];
-        $scope.gridOptions = {
-            data: 'abc',
-            selectedItems: $scope.mySelections
-        };
+    $scope.gridOptions = {
+        data: 'abc',
+        selectedItems: $scope.mySelections
+    };
 
 
 
 }
 
-function GenPopCtrl($scope,$http){
+function GenPopCtrl($scope,$http, $filter){
 
     $scope.selectedState= "";
     $scope.selectedUser= "";
@@ -433,8 +433,11 @@ function GenPopCtrl($scope,$http){
     $scope.minAnnualConsumption='';
     $scope.maxAnnualConsumption='';
 
-
     $scope.genPopData =[];
+
+
+
+    $scope.filteredItems=[];
 
 
 
@@ -442,7 +445,7 @@ function GenPopCtrl($scope,$http){
         $http.get('/api/GenPop').
             success(function (data) {
                 $scope.genPopData = data.GenPopData;
-//                $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+                $scope.search();
             }).
             error(function(){
                 alert(" in error");
@@ -467,6 +470,9 @@ function GenPopCtrl($scope,$http){
                         if(key == "dropTypes"){
                             $scope.dropTypesList = row[key];
                         }
+                        if(key == "status"){
+                            $scope.statusList = row[key];
+                        }
                     }
                 }
             }).
@@ -480,24 +486,14 @@ function GenPopCtrl($scope,$http){
 
     $scope.getMasterDatafromDB();
 
-
-    $scope.go = function(){
-
-//        $scope.abc = function(item){
-//                $scope.stateslist = function(){
-//                    return item.state = $scope.selectedState;
-//                }
-//
-//        }
-        $scope.AnnualConsumptionlimit = 10000;
+//    $scope.go = function(){
 
         $scope.isBetween = function(item) {
-            console.log("$scope.minAnnualConsumption  && $scope.maxAnnualConsumption  "+ $scope.minAnnualConsumption +" " +  $scope.maxAnnualConsumption)
-            console.log("item.annualKWh " + item.annualKWh);
+            console.log("1");
             if(($scope.minAnnualConsumption != null && $scope.minAnnualConsumption!='') && ($scope.maxAnnualConsumption != null && $scope.maxAnnualConsumption!='')){
-//                if( $scope.minAnnualConsumption < item.annualKWh && item.annualKWh > $scope.maxAnnualConsumption) {
-//                    return  item;
-//                }
+                if( ($scope.minAnnualConsumption < item.annualKWh) && (item.annualKWh > $scope.maxAnnualConsumption)) {
+                    return  item;
+                }
             } else{
                 return  item;
             }
@@ -505,10 +501,11 @@ function GenPopCtrl($scope,$http){
         };
 
         $scope.isState = function(item) {
-            console.log(" $scope.selectedState " + $scope.selectedState);
-            if($scope.selectedState != "" && $scope.selectedState != null){
-                console.log(" if ");
-                return item.state == $scope.selectedState;
+            console.log("5");
+            if($scope.selectedState != null && $scope.selectedState != ""){
+                if(item.state == $scope.selectedState) {
+                    return  item;
+                }
             }
             else{
                 return  item;
@@ -517,10 +514,8 @@ function GenPopCtrl($scope,$http){
         };
 
         $scope.isAgent = function(item) {
-
-            console.log(" $scope.selectedUser " + $scope.selectedUser);
-            if($scope.selectedUser != "" && $scope.selectedUser != null){
-                console.log(" if selectedUser ");
+            console.log("2");
+            if($scope.selectedUser != null && $scope.selectedUser != ""){
                 return item.accountName == $scope.selectedUser;
             }
             else{
@@ -529,19 +524,104 @@ function GenPopCtrl($scope,$http){
         };
 
         $scope.isDropType = function(item) {
-            console.log(" $scope.selectedType " + $scope.selectedType);
-            if($scope.selectedType != "" && $scope.selectedType != null){
-                console.log(" if selectedType ");
+            console.log("3");
+            if($scope.selectedType != null && $scope.selectedType != ""){
                 return item.dropType == $scope.selectedType;
             }
             else{
                 return  item;
             }
         };
-    }
+
+        $scope.isStatus = function(item){
+            console.log("4");
+            if($scope.selectedStatus != null && $scope.selectedStatus != ""){
+                return item.dropStatus == $scope.selectedStatus;
+            }
+            else{
+                return  item;
+            }
+        }
+//    }
+
+    $scope.range = function (start, end) {
+        var ret = [];
+        if (!end) {
+            end = start;
+            start = 0;
+        }
+        for (var i = start; i < end; i++) {
+            ret.push(i);
+        }
+        return ret;
+    };
+
+    $scope.prevPage = function () {
+        if ($scope.currentPage > 0) {
+            $scope.currentPage--;
+        }
+    };
+
+    $scope.nextPage = function () {
+        if ($scope.currentPage < $scope.pagedItems.length - 1) {
+            $scope.currentPage++;
+        }
+    };
+
+    $scope.setPage = function () {
+        $scope.currentPage = this.n;
+    };
+
+    $scope.filteredItems = [];
+    $scope.groupedItems = [];
+    $scope.pageSizes= [6, 10, 14];
+    $scope.itemsPerPage = 6;
+    $scope.pagedItems = [];
+    $scope.currentPage = 0;
 
 
+    var searchMatch = function (haystack, needle) {
+        if (!needle) {
+            return true;
+        }
+        return haystack.toLowerCase().indexOf(needle.toLowerCase()) !== -1;
+    };
 
+    // init the filtered items
+    $scope.search = function () {
+//        $scope.filteredItems = $filter('filter')($scope.genPopData, function (item) {
+//            for(var attr in item) {
+//                if (searchMatch(item[attr], $scope.query))
+//                    return true;
+//            }
+//            return false;
+//        });
+//        // take care of the sorting order
+//        if ($scope.sortingOrder !== '') {
+//            $scope.filteredItems = $filter('orderBy')($scope.filteredItems, $scope.sortingOrder, $scope.reverse);
+//        }
+        $scope.currentPage = 0;
+        // now group by pages
+        $scope.groupToPages();
+    };
+
+    // calculate page in place
+    $scope.groupToPages = function () {
+        $scope.pagedItems = [];
+        console.log("$scope.genPopData " +$scope.genPopData.length)
+        console.log("$scope.pagedItems " +$scope.pagedItems.length)
+
+        for (var i = 0; i < $scope.genPopData.length; i++) {
+            if (i % $scope.itemsPerPage === 0) {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)] = [ $scope.genPopData[i] ];
+            } else {
+                $scope.pagedItems[Math.floor(i / $scope.itemsPerPage)].push($scope.genPopData[i]);
+            }
+        }
+       console.log("$scope.pagedItems " +$scope.pagedItems.length)
+    };
+
+    $scope.search();
 
     $scope.clear = function(){
 
@@ -549,10 +629,9 @@ function GenPopCtrl($scope,$http){
         $scope.selectedUser= "";
         $scope.selectedType= "";
         $scope.selectedStatus= "";
+        $scope.minAnnualConsumption='';
+        $scope.maxAnnualConsumption='';
 
-        console.log("$scope.genPopData " + $scope.genPopData.length);
-//        $scope.query = {};
-        $scope.AnnualConsumptionlimit = 0;
 
     }
 

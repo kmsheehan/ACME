@@ -1,7 +1,6 @@
 
      Genpop page
      <br>
-
 <p> <h3> FILTER </h3></p>
 <table>
     <tr>
@@ -42,7 +41,7 @@
                     <td> Status </td>
                 </tr>
                 <tr>
-                    <td> <select style="width: 200px" ng-model="selectedStatus" ng-options="stat.id as stat.id for stat in status " multiple ></select> </td>
+                    <td> <select style="width: 200px" ng-model="selectedStatus" ng-options="status.name as status.name for status in statusList " multiple ></select> </td>
                 </tr>
             </table>
         </td>
@@ -67,15 +66,16 @@
 <table>
     <tr>
         <td>
-            <button ng-click="go()"> go </button>
-            <button ng-click="clear()"> clear </button>
+            <button ng-click="save()"> Save </button>
+            <button ng-click="clear()"> Clear </button>
         </td>
     </tr>
 </table>
 ------------------------------------------------------------------------
 
        {{selectedState}}  {{selectedUser}}   {{selectedType}}
-<table border="1">
+     <select style="width: 200px" ng-model="selectedItemsPerPage" ng-options="page as page for page in pageSizes"  ></select>
+     <table border="1">
     <tr>
         <th>Days Since Drop</th>
         <th>Account Number</th>
@@ -88,7 +88,7 @@
         <th>Invoices</th>
         <th>Last Rate</th>
     <tr>
-    <tr ng-repeat="event in genPopData |  filter:isState |filter:isAgent |filter:isDropType  | filter: isBetween">
+    <tr ng-repeat="event in pagedItems[currentPage] |  filter:isBetween |  filter:isAgent |  filter:isDropType |  filter:isStatus   |  filter:isState ">
     <td>{{event.monthsSinceDropped}}</td>
     <td>{{event.accountNumber}}</td>
     <td>{{event.accountName}}</td>
@@ -101,7 +101,31 @@
     <td>{{event.saveRate}}</td>
     <td>{{event.state}}</td>   <!-- for testing purpose -->
     <td>{{event.dropType}}</td>     <!-- for testing purpose -->
+    <td>{{event.dropStatus}}</td>     <!-- for testing purpose -->
 
 
-    <tr>
+    </tr>
+
+    <tfoot>
+    <td colspan="10">
+        <table>
+               <tr>
+                   <td>
+                <button ng-disabled="currentPage == 0" ng-click="prevPage()">
+                    Previous
+                </button>
+                   </td>
+                    <td ng-repeat="n in range(pagedItems.length)"
+                        ng-class="{active: n == currentPage}"
+                        ng-click="setPage()" > <a href ng-bind="n + 1">1</a></td>
+                     <td>
+                <button ng-disabled="currentPage == pagedItems.length - 1" ng-click="nextPage()">
+                    Next
+                </button>
+                     </td>
+               </tr>
+            </ul>
+        </table>
+    </td>
+    </tfoot>
 </table>
